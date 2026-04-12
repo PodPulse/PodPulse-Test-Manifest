@@ -1,0 +1,37 @@
+# File as it exists in the Helm repo (templates/deployment.yaml without Helm labels).
+# This is what ManifestResolver will scan on GitHub.
+# The matcher will look for "oom-helm-container" in the content → match.
+# Note: in a real Helm chart this would use {{ .Values.* }} — container name is hardcoded
+#       here so that YamlContentMatcher can match it.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oom-helm
+  namespace: podpulse-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oom-helm
+  template:
+    metadata:
+      labels:
+        app: oom-helm
+    spec:
+      containers:
+        - name: oom-helm-container
+          image: polinux/stress
+          args:
+            - stress
+            - --vm
+            - "1"
+            - --vm-bytes
+            - "200M"
+            - --vm-keep
+          resources:
+            requests:
+              memory: "30Mi"
+              cpu: "50m"
+            limits:
+              memory: "50Mi"
+              cpu: "100m"

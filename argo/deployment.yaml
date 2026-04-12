@@ -1,0 +1,35 @@
+# File as it exists in the GitOps repo (ArgoCD does NOT store its labels here).
+# This is what ManifestResolver will scan on GitHub.
+# The matcher will look for "oom-argo-container" in the content → match.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oom-argo
+  namespace: podpulse-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oom-argo
+  template:
+    metadata:
+      labels:
+        app: oom-argo
+    spec:
+      containers:
+        - name: oom-argo-container
+          image: polinux/stress
+          args:
+            - stress
+            - --vm
+            - "1"
+            - --vm-bytes
+            - "200M"
+            - --vm-keep
+          resources:
+            requests:
+              memory: "30Mi"
+              cpu: "50m"
+            limits:
+              memory: "50Mi"
+              cpu: "100m"
