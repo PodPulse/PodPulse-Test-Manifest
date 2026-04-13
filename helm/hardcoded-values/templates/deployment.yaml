@@ -1,25 +1,25 @@
 # File as it exists in the Helm repo (templates/deployment.yaml without Helm labels).
 # This is what ManifestResolver will scan on GitHub.
-# The matcher will look for "oom-helm-container" in the content → match.
+# The matcher will look for "order-service" container in the content → match.
 # Note: in a real Helm chart this would use {{ .Values.* }} — container name is hardcoded
 #       here so that YamlContentMatcher can match it.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oom-helm-hardcoded
-  namespace: podpulse-test
+  name: order-service
+  namespace: commerce
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: oom-helm
+      app: order-service
   template:
     metadata:
       labels:
-        app: oom-helm
+        app: order-service
     spec:
       containers:
-        - name: oom-helm-hardcoded-container
+        - name: order-service
           image: polinux/stress
           args: ["stress", "--vm", "1", "--vm-bytes", "200M", "--vm-keep"]
           resources:

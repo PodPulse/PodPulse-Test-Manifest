@@ -1,22 +1,22 @@
 # Identical to cluster-apply: for Raw there are no dynamically injected labels.
-# The matcher will look for "oom-raw-container" + namespace "podpulse-test" + resources block → score ≥ 0.70.
+# The matcher will look for "payment-api" container + namespace "billing" + resources block → score ≥ 0.70.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oom-raw
-  namespace: podpulse-test
+  name: payment-api
+  namespace: billing
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: oom-raw
+      app: payment-api
   template:
     metadata:
       labels:
-        app: oom-raw
+        app: payment-api
     spec:
       containers:
-        - name: oom-raw-container
+        - name: payment-api
           image: polinux/stress
           args:
             - stress

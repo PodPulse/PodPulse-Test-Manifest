@@ -1,23 +1,23 @@
 # File as it exists in the GitOps repo (ArgoCD does NOT store its labels here).
 # This is what ManifestResolver will scan on GitHub.
-# The matcher will look for "oom-argo-container" in the content → match.
+# The matcher will look for "recommendation-engine" container in the content → match.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oom-argo
-  namespace: podpulse-test
+  name: recommendation-engine
+  namespace: ml-platform
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: oom-argo
+      app: recommendation-engine
   template:
     metadata:
       labels:
-        app: oom-argo
+        app: recommendation-engine
     spec:
       containers:
-        - name: oom-argo-container
+        - name: recommendation-engine
           image: polinux/stress
           args:
             - stress

@@ -14,7 +14,7 @@ spec:
         app: {{ .Release.Name }}
     spec:
       containers:
-        - name: oom-helm-template-container
+        - name: event-consumer
           image: {{ .Values.image }}
           args: ["stress", "--vm", "1", "--vm-bytes", "200M", "--vm-keep"]
           resources:
