@@ -6,7 +6,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oom-helm
+  name: oom-helm-hardcoded
   namespace: podpulse-test
 spec:
   replicas: 1
@@ -19,15 +19,9 @@ spec:
         app: oom-helm
     spec:
       containers:
-        - name: oom-helm-container
+        - name: oom-helm-hardcoded-container
           image: polinux/stress
-          args:
-            - stress
-            - --vm
-            - "1"
-            - --vm-bytes
-            - "200M"
-            - --vm-keep
+          args: ["stress", "--vm", "1", "--vm-bytes", "200M", "--vm-keep"]
           resources:
             requests:
               memory: "30Mi"
