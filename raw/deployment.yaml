@@ -6,7 +6,7 @@ metadata:
   name: oom-raw
   namespace: podpulse-test
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: oom-raw
